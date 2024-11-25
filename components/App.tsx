@@ -67,29 +67,28 @@ function App() {
     }
   }
 
-  // async function handleSignMsg() {
-  //   if (!wallet.account) return;
-  //   try {
-  //     const msg = "Hello world!";
-  //     const msgBytes = new TextEncoder().encode(msg);
-  //     const result = await wallet.signPersonalMessage({
-  //       message: msgBytes,
-  //     });
-  //     const verifyResult = await wallet.verifySignedMessage(
-  //       result,
-  //       wallet.account.publicKey
-  //     );
-  //     console.log("verify signedMessage", verifyResult);
-  //     if (!verifyResult) {
-  //       alert(`signMessage succeed, but verify signedMessage failed`);
-  //     } else {
-  //       alert(`signMessage succeed, and verify signedMessage succeed!`);
-  //     }
-  //   } catch (e) {
-  //     console.error("signMessage failed", e);
-  //     alert("signMessage failed (see response in the console)");
-  //   }
-  // }
+  async function handleSignMsg() {
+    if (!wallet.account) return;
+    try {
+      const msg = "Hello world!";
+      const msgBytes = new TextEncoder().encode(msg);
+      const result = await wallet.signPersonalMessage({
+        message: msgBytes,
+      });
+      const verifyResult = await wallet.verifySignedMessage(
+        result, wallet.account.publicKey.slice()
+      );
+      console.log("verify signedMessage", verifyResult);
+      if (!verifyResult) {
+        alert(`signMessage succeed, but verify signedMessage failed`);
+      } else {
+        alert(`signMessage succeed, and verify signedMessage succeed!`);
+      }
+    } catch (e) {
+      console.error("signMessage failed", e);
+      alert("signMessage failed (see response in the console)");
+    }
+  }
 
   const handleSignTxnAndVerifySignature = async (contractAddress: string) => {
     const txn = new Transaction();
@@ -204,7 +203,7 @@ function App() {
                   Mint {chainName(wallet.chain?.id)} NFT
                 </button>
               )}
-              {/* <button onClick={handleSignMsg}>signMessage</button> */}
+              <button onClick={handleSignMsg}>signMessage</button>
               {nftContractAddr && (
                 <button onClick={() => handleSignTxnAndVerifySignature(nftContractAddr)}>
                   Sign & Verify Transaction
