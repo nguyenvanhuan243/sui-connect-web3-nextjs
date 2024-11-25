@@ -9,6 +9,8 @@ import { Transaction } from "@mysten/sui/transactions";
 import { useMemo } from "react";
 import { Ed25519PublicKey } from "@mysten/sui/keypairs/ed25519";
 import { Buffer } from "buffer";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const sampleNft = new Map([
   [
@@ -60,10 +62,14 @@ function App() {
         transaction: tx,
       });
       console.log("executeMoveCall success", resData);
-      alert("executeMoveCall succeeded (see response in the console)");
+      toast.success("executeMoveCall succeeded", {
+        autoClose: 2000
+      });
     } catch (e) {
       console.error("executeMoveCall failed", e);
-      alert("executeMoveCall failed (see response in the console)");
+      toast.error("executeMoveCall failed", {
+        autoClose: 2000
+      });
     }
   }
 
@@ -80,13 +86,19 @@ function App() {
       );
       console.log("verify signedMessage", verifyResult);
       if (!verifyResult) {
-        alert(`signMessage succeed, but verify signedMessage failed`);
+        toast.success("signMessage succeed, but verify signedMessage failed", {
+          autoClose: 2000
+        })
       } else {
-        alert(`signMessage succeed, and verify signedMessage succeed!`);
+        toast.success("signMessage succeed, and verify signedMessage succeed!", {
+          autoClose: 2000
+        })
       }
     } catch (e) {
       console.error("signMessage failed", e);
-      alert("signMessage failed (see response in the console)");
+      toast.error("signMessage failed", {
+        autoClose: 2000
+      })
     }
   }
 
@@ -125,13 +137,18 @@ function App() {
       const isValid = await pubKey.verifyTransaction(txnBytes, signedTxn.signature);
       console.log("-- use pubKey to verify transaction: ", isValid);
       if (!isValid) {
-        alert(`signTransaction succeed, but verify transaction failed`);
+        toast.error("signTransaction succeed, but verify transaction failed", {
+          autoClose: 2000
+        });
       } else {
-        alert(`signTransaction succeed, and verify transaction succeed!`);
+        toast.success("Transaction signing and verification successful!", {
+          autoClose: 2000
+        });
       }
     } catch (e) {
-      console.error("signTransaction failed", e);
-      alert("signTransaction failed (see response in the console)");
+      toast.error("signTransaction failed", {
+        autoClose: 2000
+      });
     }
   };
 
@@ -216,6 +233,7 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and Suiet logos to learn more
       </p>
+      <ToastContainer /> {/* Add this line to render the toast notifications */}
     </div>
   );
 }
