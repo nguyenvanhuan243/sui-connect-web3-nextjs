@@ -37,8 +37,8 @@ function App() {
 
   function uint8arrayToHex(value: Uint8Array | undefined) {
     if (!value) return "";
-    // @ts-ignore
-    return value.toString("hex");
+    // Convert Uint8Array to hex
+    return Buffer.from(value).toString("hex");
   }
 
   async function handleExecuteMoveCall(target: string | undefined) {
@@ -194,7 +194,7 @@ function App() {
               <p>current network: {wallet.chain?.name}</p>
               <p>wallet balance: {String(balance)} SUI</p>
               <p>
-                wallet publicKey: {uint8arrayToHex(wallet.account?.publicKey)}
+                wallet publicKey: {uint8arrayToHex(wallet.account?.publicKey ? new Uint8Array(wallet.account.publicKey) : undefined)}
               </p>
             </div>
             <div className={"btn-group"} style={{ margin: "8px 0" }}>
