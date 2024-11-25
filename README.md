@@ -34,3 +34,5 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 # NFT - https://suiscan.xyz/devnet/collection/0xafee4e75841ee36b7057f99d5a7358073cf4c72e269a8c0d1ee6b7c9f6ffac16::devnet_nft::DevNetNFT/items
+
+# Wallet: https://suiet.app/
